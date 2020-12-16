@@ -32,42 +32,34 @@ public class Index extends HttpServlet {
 		String achatsVentes;
 		String radioAchats;	
 		List<Article> listEncheresOuvertes = new ArrayList<Article>();
-		List<Enchere> listFinDeVente = new ArrayList<>();
+		VenteManager mngr = VenteManager.getInstance();
 		
 		if (userConnected == null) {
-			VenteManager mngr = VenteManager.getInstance();
-			listFinDeVente = mngr.selectFinEnchere();
-			if (listFinDeVente!=null) {
-				mngr.updateVendu();
-				mngr.updateNonVendu();
-				for (Enchere enchere : listFinDeVente) {
-					mngr.crediterAcheteur(enchere.getAcheteur(),enchere.getNo_article());
-					mngr.crediterVendeur(enchere.getVendeur(),enchere.getNo_article());
-			}
-
-			}
-
+			updateEncheres(mngr);
 			listEncheresOuvertes =  mngr.selectEncherersOuvertes();
 			session.setAttribute("mesAchats", listEncheresOuvertes);
 		
 			getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
-				} else if (userConnected != null) {
+				
+		} else if (userConnected != null) {
 					radioAchats = (String) session.getAttribute("radioAchats");
 					achatsVentes =  (String) session.getAttribute("achatsVentes");
+					updateEncheres(mngr);
 					if (achatsVentes == null && radioAchats == null) {
 						listEncheresOuvertes = new ArrayList<Article>();
-						VenteManager mngr = VenteManager.getInstance();
-						//mngr.updateVente();
 						listEncheresOuvertes = new ArrayList<Article>();
 						listEncheresOuvertes =  mngr.selectEncherersOuvertes();
 						session.setAttribute("radioAchats", "1");	
 						session.setAttribute("achatsVentes", "1");
 						session.setAttribute("mesAchats", listEncheresOuvertes);
+						
 						getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
 						return;
+						
 							} else {
 								listEncheresOuvertes = new ArrayList<Article>();
-								session.setAttribute("mesAchats", listEncheresOuvertes);	
+								session.setAttribute("mesAchats", listEncheresOuvertes);
+								
 								getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
 
 							}				
@@ -86,7 +78,7 @@ public class Index extends HttpServlet {
 		String radioAchats;
 		String radioVentes;
 		Utilisateur user;
-
+		VenteManager mngr = VenteManager.getInstance();
 //MES VENTES		
 		achatsVentes = request.getParameter("radioTop_form_categorie");
 		if (achatsVentes.equals("2")) {
@@ -99,12 +91,11 @@ public class Index extends HttpServlet {
 			List<Article> mesVentesEnCours;
 			List<Article> ventesTerminees;	
 			List<Article> ventesNonDebutees;
-			VenteManager mngr1 = VenteManager.getInstance();
 			user = (Utilisateur)(session.getAttribute("userConnected"));
-			//mngr1.updateVente();
+			updateEncheres(mngr);
 				switch (radioVentes) {
 				case "1":
-					mesVentesEnCours = mngr1.selectArticleByUser(user.getId());
+					mesVentesEnCours = mngr.selectArticleByUser(user.getId());
 					if (mesVentesEnCours.isEmpty()) {
 						request.setAttribute("pasDeVentesEnCours", "Vous n'avez aucune vente en cours.");
 						session.setAttribute("mesVentes", mesVentesEnCours);
@@ -114,7 +105,7 @@ public class Index extends HttpServlet {
 					session.setAttribute("mesVentes", mesVentesEnCours);
 					break;
 				case "2":
-					ventesNonDebutees = mngr1.selectArticleByUser_vND(user.getId());
+					ventesNonDebutees = mngr.selectArticleByUser_vND(user.getId());
 					if (ventesNonDebutees.isEmpty()) {
 						request.setAttribute("ventesNonDebutees", "Vous n'avez aucune vente à venir.");
 						session.setAttribute("mesVentes", ventesNonDebutees);
@@ -124,7 +115,7 @@ public class Index extends HttpServlet {
 					session.setAttribute("mesVentes", ventesNonDebutees);
 					break;
 				case "3":
-					ventesTerminees = mngr1.selectArticleByUser_vT(user.getId());
+					ventesTerminees = mngr.selectArticleByUser_vT(user.getId());
 					if (ventesTerminees.isEmpty()) {
 						request.setAttribute("ventesTerminees", "Vous n'avez pas encore vendu votre premier article.");
 						session.setAttribute("mesVentes", ventesTerminees);
@@ -156,8 +147,7 @@ public class Index extends HttpServlet {
 			List<Article> listEncheresOuvertes = new ArrayList<Article>();
 			List<Enchere> mesEncheresEnCours = new ArrayList<Enchere>();
 			List<Enchere> mesEncheresRemportees = new ArrayList<Enchere>();
-			VenteManager mngr = VenteManager.getInstance();
-			//mngr.updateVente();
+			updateEncheres(mngr);
 			
 			switch (radioAchats) {
 			case "1":
@@ -170,14 +160,10 @@ public class Index extends HttpServlet {
 				}
 				session.setAttribute("mesAchats", listEncheresOuvertes);
 				break;
-			case "2":
-				//Integer no_article = (Integer) session.getAttribute("no_article_encheri");
-				
+			case "2":		
 				user = (Utilisateur)(session.getAttribute("userConnected"));
-				System.out.println( user.getId());
 				mesEncheresEnCours = mngr.selectEnchereSuivie( user.getId());
 			
-				System.out.println(mesEncheresEnCours);
 				if (mesEncheresEnCours.isEmpty()) {
 					request.setAttribute("mesEncheresEnCours", "Vous n'avez aucune enchère en cours.");
 					session.setAttribute("mesAchats", listEncheresOuvertes);
@@ -206,6 +192,21 @@ public class Index extends HttpServlet {
 		}		
 
 	}
+	
+	public void updateEncheres(VenteManager mngr) {
+		List<Enchere> listFinDeVente = new ArrayList<>();
+		mngr = VenteManager.getInstance();
+		listFinDeVente = mngr.selectFinEnchere();
+		if (listFinDeVente!=null) {
+			mngr.updateVendu();
+			mngr.updateNonVendu();
+			for (Enchere enchere : listFinDeVente) {
+				mngr.crediterAcheteur(enchere.getAcheteur(),enchere.getNo_article());
+				mngr.crediterVendeur(enchere.getVendeur(),enchere.getNo_article());
+				}
+			}
+	}
+	
 }
 
 	
