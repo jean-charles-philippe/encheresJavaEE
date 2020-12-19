@@ -27,7 +27,7 @@
 			<div class="form-group">
     			<label for="email" class="col-form-label">Identifiant</label>
     			<div class="">
-      				<input type="email" class="form-control" name="email_form_login" id="email_form_login" placeholder="@email" autofocus>
+      				<input type="email" class="form-control" name="email_form_login" id="email_form_login"  value="${cookie.emailLogin.value }" autofocus>
     			</div>
     		</div>
     		
@@ -45,8 +45,10 @@
     			
 			    <div class="col-7 offset-1">
 			      <div class="form-check">
-			        <input class="form-check-input" type="checkbox" id="gridCheck1">
-			        <label class="form-check-label" for="gridCheck1">
+			        <input class="form-check-input" type="checkbox" id="check_souvenir" name="check_souvenir" value="1"
+			       		<c:if test="${  cookie.suiviLogin.value == 1}">checked</c:if>
+			        >
+			        <label class="form-check-label" for="check_souvenir">
 			          Se souvenir de moi
 			        </label>  
 			      </div>

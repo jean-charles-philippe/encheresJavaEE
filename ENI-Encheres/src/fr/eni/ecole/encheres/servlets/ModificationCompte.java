@@ -44,7 +44,15 @@ public class ModificationCompte extends HttpServlet {
 		String rue = request.getParameter("rue_form_modification_rue");
 		String cp = request.getParameter("cp_form_modification_cp");
 		String ville = request.getParameter("ville_form_modification_ville");
+	
+		String mdpAverifier = request.getParameter("password_form_modification_new");
 		String mdp = request.getParameter("password_form_modification_new_confirmation");
+		if (!mdpAverifier.equals(mdp)) {
+			request.setAttribute("checkPassword", "Les mots de passe saisis ne sont pas identiques!");
+			getServletContext().getRequestDispatcher("/WEB-INF/monProfil.jsp").forward(request, response);
+			return;
+		}
+		
 		Integer credit = Integer.parseInt(request.getParameter("credit"));
 		if (mdp.isEmpty()) {
 			mdp = request.getParameter("password_form_modification_current");
@@ -59,6 +67,7 @@ public class ModificationCompte extends HttpServlet {
 		request.setAttribute("updateProfile", "Votre profil a bien été mis à jour.");
 		
 		getServletContext().getRequestDispatcher("/WEB-INF/monProfil.jsp").forward(request, response);
+		
 	}
 
 }

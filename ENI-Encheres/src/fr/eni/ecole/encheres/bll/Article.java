@@ -1,8 +1,6 @@
 package fr.eni.ecole.encheres.bll;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Article {
 	String nomArticle;

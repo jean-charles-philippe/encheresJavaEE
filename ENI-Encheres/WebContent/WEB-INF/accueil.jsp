@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 <title>Accueil-ENI-Enchères</title>
 </head>
-<body>
-	<header class="container">
+<body class="justify-coentent-center">
+	<header class="container ">
 		<div class="jumbotron">
 		  <h1 class="display-4">ENI-Enchères</h1>		  
 		  <c:if test="${!empty userConnected }">
@@ -79,9 +79,9 @@
 		</div>
 	</header>
 <!-- FILTRE GENERAL	 -->	
-	<div class="container">
+	<div class="container ">
 		<h1 class="text-center">Liste des enchères</h1>
-		<form action="index" method="POST" class="mb-5">
+		<form action="index" method="POST" class="mb-5 justify-content-center">
 			<fieldset class="row">
 			 <legend class="ml-3">Filtres:</legend>
 			 <div class="form col-12 col-md-6 mb-3">
@@ -105,8 +105,8 @@
 							
 <!-- FILTRE DES ACHATS	 -->				
 					<c:if test="${!empty userConnected }">
-						<div class="row ">
-							<div class="achats col-lg-6 mb-3">
+						<div class="row  ">
+							<div class="achats col-12  mb-3  ">
 									<div class="form-check ">
 									  <input class="form-check-input" type="radio" name="radioTop_form_categorie" id="radioTop_form_categorie" value="1"
 									   	<c:if test="${(!empty userConnected && achatsVentes == 1)  }">checked</c:if>>
@@ -144,7 +144,7 @@
 							</div>
 							
 <!-- FILTRE DES VENTES	 -->						
-							<div class="ventes col-lg-6">
+							<div class="ventes col-12   ">
 								<div class="form-check ">
 								  <input class="form-check-input" type="radio" name="radioTop_form_categorie" id="radioTop_form_categorie" value="2"
 								  		<c:if test="${(!empty userConnected && achatsVentes == 2  )   }">checked</c:if>>
@@ -181,8 +181,8 @@
 						</div>
 					</c:if>
 			    </div>
-					<div class="col col-12 col-md-4 offset-md-1  d-flex align-items-center">
-				      <input type="submit" class="btn btn-primary btn-lg btn-block col-10" value="Rechercher" name="rechercher_form_categorie"
+					<div class="col col-12 col-md-5 offset-md-1  ">
+				      <input type="submit" class="btn btn-primary btn-lg btn-block col-12 " value="Rechercher" name="rechercher_form_categorie"
 						<c:if test="${empty userConnected }">disabled</c:if>>				       
 				    </div>	
 		  	</fieldset>
@@ -192,17 +192,17 @@
 	
 	
 <!-- BLOC AFFICHAGE  ACHATS -->
-	<div class="container">
-		<div class="row justify-content-around  mb-5"> 
+	<div class="container ">
+		<div class="row justify-content-around  mb-5 "> 
 		  <c:if test="${empty userConnected || (!empty userConnected && achatsVentes == 1  ) }">	  		
 			<c:forEach var="current" items="${mesAchats }">		
-						<div class="card mb-3 col-12 col-md-6" style="max-width: 540px;">
-				  			<div class="row no-gutters">
-				    			<div class="col-md-4  d-flex align-items-center">
-				      				<img src="images/icon-uploader-5.jpg" class="card-img img-fluid " alt="..." style="max-width: 75%;">
+						<div class="card text-center mb-3 col-12 col-lg-6"  style="max-width: 540px;" >
+				  			<div class=" row no-gutters">
+				    			<div class="col-md-4  d-flex align-items-center justify-content-center ">
+				      				<img src="images/icon-uploader-5.jpg" class="card-img   " alt="...">
 				    			</div>
-				    			<div class="col-md-8">
-					      			<div class="card-body">
+				    			<div class="col-md-8  ">
+					      			<div class="card-body  ">
 									   <h3 class="card-title">
 								    	<c:choose>
 								    		<c:when test="${!empty userConnected }">
@@ -230,7 +230,7 @@
 						</div>
 			</c:forEach>					
 	</c:if>
-		</div>	
+		 </div> 
 	</div>		
 	
 	
@@ -239,10 +239,10 @@
 		<c:forEach var="current" items="${mesVentes }" >
 			<div class="container"> 
 				<div class="row justify-content-around  mb-5">
-					<div class="card mb-3 col-12 col-md-6" style="max-width: 540px;">
+					<div class="card mb-3 col-12 col-lg-6" style="max-width: 540px;">
 			  			<div class="row no-gutters">
-			    			<div class="col-md-4  d-flex align-items-center">
-			      				<img src="images/icon-uploader-5.jpg" class="card-img img-fluid " alt="..." style="max-width: 75%;">
+			    			<div class="col-md-4  d-flex align-items-center justify-content-center">
+			      				<img src="images/icon-uploader-5.jpg" class="card-img  " alt="..." >
 			    			</div>
 			    			<div class="col-md-8">
 				      			<div class="card-body">

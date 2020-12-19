@@ -26,6 +26,13 @@
   					${updateProfile}
 				</div>
 			</c:if>
+			  	<c:if test="${!empty checkPassword}">
+		  		<div class="alert alert-warning" role="alert">
+  					${checkPassword}
+				</div>
+			</c:if>		
+			
+			
 		</div>
 	</header>
 	
