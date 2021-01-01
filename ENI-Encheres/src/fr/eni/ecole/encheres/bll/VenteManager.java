@@ -1,8 +1,7 @@
+
 package fr.eni.ecole.encheres.bll;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import fr.eni.ecole.encheres.dal.ArticleDAO;
@@ -126,6 +125,8 @@ public class VenteManager {
 		achatsRemportes = enchereDAO.selectArticleByUser_AchatsR(id);
 		return achatsRemportes;
 	}
+	
+
 
 
 //UPDATE

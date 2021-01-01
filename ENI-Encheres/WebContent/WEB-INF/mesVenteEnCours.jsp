@@ -50,7 +50,8 @@
 
 												
 				<div class="col-md-3 ml-3 mb-3 text-center">
-					<img src="images\icon-uploader-5.jpg" class="img-fluid rounded " alt="Responsive image">
+				
+					<img src="${article_a_MAJ.imageVente }" class="img-fluid rounded " alt="Responsive image">
 				</div>
 			
 				<form action="consultationVentes" method="POST" class=" col-md-7">
@@ -68,7 +69,7 @@
 					 	</div>
 					  
 		
-						<div class="form-group  row"">
+						<div class="form-group  row">
 					   		<label for="form_consultationVentes_description" class="col-md-4 col-form-label">Description</label>
 					   		<div class="col-md-8">
 					    		<textarea class="form-control" id="form_consultationVentes_description" name="form_consultationVentes_description" rows="3"

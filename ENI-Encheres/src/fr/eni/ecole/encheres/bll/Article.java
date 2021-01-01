@@ -1,3 +1,5 @@
+
+
 package fr.eni.ecole.encheres.bll;
 
 import java.time.LocalDate;
@@ -12,16 +14,26 @@ public class Article {
 	Integer categorie;
 	Integer etatVente;
 	Integer no_utilisateur;
-	
+	String imageVente;
 	Integer no_article;
 	String rue;
 	String code_postal;
 	String ville;
 	String pseudo;
 	
-//init article
+public String getImageVente() {
+		return imageVente;
+	}
+
+
+	public void setImageVente(String imageVente) {
+		this.imageVente = imageVente;
+	}
+
+
+	//init article
 	public Article(String nomArticle, String description, LocalDate dateDebutEncheres2, LocalDate dateFinEncheres2,
-			Integer miseAPrix,  Integer categorie, Integer etatVente, Integer no_utilisateur) {
+			Integer miseAPrix,  Integer categorie, Integer etatVente, Integer no_utilisateur, String imageVente) {
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres2;
@@ -30,13 +42,14 @@ public class Article {
 		this.categorie = categorie;
 		this.etatVente = etatVente;
 		this.no_utilisateur = no_utilisateur;
+		this.imageVente = imageVente;
 	}
 	
 
 //article + retrait avec pseudo 
 	public Article(Integer no_article,String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
 			Integer miseAPrix, Integer prixVente, Integer categorie, Integer etatVente, Integer no_utilisateur, String pseudo,
-			String rue, String code_postal, String ville) {
+			String rue, String code_postal, String ville, String imageVente) {
 		this.no_article = no_article;
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -51,6 +64,7 @@ public class Article {
 		this.rue = rue;
 		this.code_postal = code_postal;
 		this.ville = ville;
+		this.imageVente = imageVente;
 	}
 
 
@@ -58,7 +72,7 @@ public class Article {
 //article + retrait
 	public Article(Integer no_article,String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
 			Integer miseAPrix, Integer prixVente, Integer categorie, Integer etatVente, Integer no_utilisateur,
-			String rue, String code_postal, String ville) {
+			String rue, String code_postal, String ville, String imageVente) {
 		this.no_article = no_article;
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -72,6 +86,7 @@ public class Article {
 		this.rue = rue;
 		this.code_postal = code_postal;
 		this.ville = ville;
+		this.imageVente = imageVente;
 	}
 
 
@@ -79,7 +94,7 @@ public class Article {
 
 //article + pseudo
 	public Article(Integer no_article, String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, Integer miseAPrix,
-			Integer prixVente, Integer categorie, Integer etatVente,Integer no_utilisateur, String pseudo) {
+			Integer prixVente, Integer categorie, Integer etatVente,Integer no_utilisateur, String pseudo, String imageVente) {
 		this.no_article = no_article;
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -91,6 +106,7 @@ public class Article {
 		this.etatVente = etatVente;
 		this.no_utilisateur = no_utilisateur;
 		this.pseudo = pseudo;
+		this.imageVente = imageVente;
 	}
 	
 

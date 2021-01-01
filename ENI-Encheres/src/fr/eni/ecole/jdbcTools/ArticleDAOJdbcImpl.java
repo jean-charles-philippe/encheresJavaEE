@@ -14,8 +14,8 @@ import fr.eni.ecole.encheres.dal.ArticleDAO;
 
 public class ArticleDAOJdbcImpl implements ArticleDAO {
 	private static final String INSERT_ARTICLE_SQL = "INSERT INTO articles"
-			+ " (nom_article, description, date_debut_encheres, date_fin_encheres,prix_initial,no_utilisateur,no_categorie, etat_vente)"
-			+ "  VALUES (?,?,?,?,?,?,?,?) ";
+			+ " (nom_article, description, date_debut_encheres, date_fin_encheres,prix_initial,no_utilisateur,no_categorie, etat_vente, imageVente)"
+			+ "  VALUES (?,?,?,?,?,?,?,?,?) ";
 	
 	private static final String SELECT_ID_SQL = "SELECT @@IDENTITY";
 	
@@ -100,6 +100,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			pstmt.setInt(6, article.getNo_utilisateur());
 			pstmt.setInt(7, article.getCategorie());
 			pstmt.setInt(8, article.getEtatVente());
+			pstmt.setString(9, article.getImageVente());
 
 			pstmt.executeUpdate();
 			
@@ -151,7 +152,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				vente = new Article( rs.getInt("no_article"),rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("no_categorie"), rs.getInt("etat_vente"), rs.getInt("no_utilisateur"),  rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"));
+				vente = new Article( rs.getInt("no_article"),rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("no_categorie"), rs.getInt("etat_vente"), rs.getInt("no_utilisateur"),  rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"),rs.getString("imageVente") );
 				mesVentesEnCours.add(vente);
 			}			
 			
@@ -187,7 +188,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				article = new Article( rs.getInt("no_article"),rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("no_categorie"), rs.getInt("etat_vente"), rs.getInt("no_utilisateur"), rs.getString("pseudo"));
+				article = new Article( rs.getInt("no_article"),rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("no_categorie"), rs.getInt("etat_vente"), rs.getInt("no_utilisateur"), rs.getString("pseudo"),rs.getString("imageVente"));
 				listEncheresOuvertes.add(article);
 			}			
 			
@@ -224,7 +225,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				article = new Article( rs.getInt("no_article"),rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("no_categorie"), rs.getInt("etat_vente"), rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"));
+				article = new Article( rs.getInt("no_article"),rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("no_categorie"), rs.getInt("etat_vente"), rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"),rs.getString("imageVente"));
 			}			
 			
 			
@@ -261,7 +262,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				vente = new Article( rs.getInt("no_article"),rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("no_categorie"), rs.getInt("etat_vente"), rs.getInt("no_utilisateur"),  rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"));
+				vente = new Article( rs.getInt("no_article"),rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("no_categorie"), rs.getInt("etat_vente"), rs.getInt("no_utilisateur"),  rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"),rs.getString("imageVente"));
 				ventesNonDebutees.add(vente);
 			}			
 			
@@ -299,7 +300,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				vente = new Article( rs.getInt("no_article"),rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("no_categorie"), rs.getInt("etat_vente"), rs.getInt("no_utilisateur"),  rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"));
+				vente = new Article( rs.getInt("no_article"),rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("no_categorie"), rs.getInt("etat_vente"), rs.getInt("no_utilisateur"),  rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"),rs.getString("imageVente"));
 				ventesTerminees.add(vente);
 			}			
 			

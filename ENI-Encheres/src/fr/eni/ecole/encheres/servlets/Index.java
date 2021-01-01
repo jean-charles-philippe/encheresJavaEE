@@ -16,6 +16,8 @@ import fr.eni.ecole.encheres.bll.Enchere;
 import fr.eni.ecole.encheres.bll.Utilisateur;
 import fr.eni.ecole.encheres.bll.VenteManager;
 
+
+
 /**
  * Servlet implementation class Index
  */

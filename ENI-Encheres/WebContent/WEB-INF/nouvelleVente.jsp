@@ -29,10 +29,10 @@
 		<div class="row">
 		
 			<div class="col-md-3 ml-3 mb-3 text-center">
-				<img src="images\icon-uploader-5.jpg" class="img-fluid rounded " alt="Responsive image">
+				<img src="images\icon-uploader-5.jpg" class="img-fluid rounded " alt="Objet à vendre">
 			</div>
 		
-			<form action="nouvelleVente" method="POST" class=" col-md-7">
+			<form action="nouvelleVente" method="POST" enctype="multipart/form-data" class=" col-md-7">
 			
 			<div class="col-md-10">
 					<input type="hidden" value="${userConnected.id }" name="form_nouvelleVente_id_Utilisateur_article">
@@ -66,7 +66,7 @@
 					  <div class="form-group row">
 					    	<label for="form_nouvelleVente_uploader" class="col-md-4 col-form-label">Photo de l'article</label>
 					    	<div class="col-md-8">	
-					    		<input type="file" class="form-control-file" id="form_nouvelleVente_uploader" name="form_nouvelleVente_uploader">
+					    		<input type="file" formenctype="multipart/form-data" accept="image/*" class="form-control-file" id="form_nouvelleVente_uploader" name="form_nouvelleVente_uploader">
 					    	</div>
 					  </div>
 	

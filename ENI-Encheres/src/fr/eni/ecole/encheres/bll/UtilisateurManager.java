@@ -1,6 +1,7 @@
 package fr.eni.ecole.encheres.bll;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import fr.eni.ecole.encheres.dal.DAOFactory;
 import fr.eni.ecole.encheres.dal.UtilisateurDAO;
@@ -53,6 +54,14 @@ public class UtilisateurManager {
 		user = utilisateurDAO.login(email,mdp);
 		return user;
 	}
+
+	public List<Utilisateur> selectMembres() {
+		List<Utilisateur> listMembres;
+		UtilisateurDAO utilisateurDAO = DAOFactory.getUtilisateurDAO();
+		listMembres = utilisateurDAO.selectMembres();
+		return listMembres;
+	}
+	
 	
 //UPDATE
 	

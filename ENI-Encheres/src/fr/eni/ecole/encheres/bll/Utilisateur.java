@@ -1,3 +1,7 @@
+
+
+
+
 package fr.eni.ecole.encheres.bll;
 
 public class Utilisateur {
@@ -32,9 +36,9 @@ public class Utilisateur {
 	}
 	
 	
-//UTILISATEUR AVEC SON ID
+//UTILISATEUR AVEC SON ID ET ADMIN
 	public Utilisateur( Integer id, String pseudo, String nom, String prenom, String email, String tel, String rue, String cp,
-			String ville, String mdp, Integer credit) {
+			String ville, String mdp, Integer credit, Integer administrateur) {
 		this.id = id;
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -46,8 +50,31 @@ public class Utilisateur {
 		this.ville = ville;
 		this.mdp = mdp;
 		this.credit = credit;
+		this.administrateur = administrateur;
 	}
 
+	
+	//UTILISATEUR AVEC SON ID POUR MODIFICATION PROFIL 
+		public Utilisateur( Integer id, String pseudo, String nom, String prenom, String email, String tel, String rue, String cp,
+				String ville, String mdp, Integer credit) {
+			this.id = id;
+			this.pseudo = pseudo;
+			this.nom = nom;
+			this.prenom = prenom;
+			this.email = email;
+			this.tel = tel;
+			this.rue = rue;
+			this.cp = cp;
+			this.ville = ville;
+			this.mdp = mdp;
+			this.credit = credit;
+	
+		}
+
+
+	public Integer getAdministrateur() {
+		return administrateur;
+	}
 
 
 	public Integer getId() {

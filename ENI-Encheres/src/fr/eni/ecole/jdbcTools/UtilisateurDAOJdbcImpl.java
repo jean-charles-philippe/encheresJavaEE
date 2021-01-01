@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.eni.ecole.encheres.bll.Utilisateur;
 import fr.eni.ecole.encheres.dal.UtilisateurDAO;
@@ -24,6 +26,10 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private static final String SELECT_PROFIL_BY_ID_SQL = "SELECT * "
 			+ "FROM utilisateurs "
 			+ "WHERE no_utilisateur=? ";
+	
+	private static final String SELECT_MEMBRES = "SELECT * "
+			+ "FROM utilisateurs ";
+	
 	
 	private static final String UPDATE_PROFIL_SQL = "UPDATE utilisateurs "
 			+ "SET pseudo=?,nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=?, credit=? "
@@ -96,7 +102,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				user = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit") );
+				user = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getInt("administrateur") );
 		
 			}
 			
@@ -121,7 +127,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				user = new Utilisateur(rs.getInt("no_utilisateur"),rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"));
+				user = new Utilisateur(rs.getInt("no_utilisateur"),rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getInt("administrateur"));
 			}			
 			
 			
@@ -147,7 +153,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				user = new Utilisateur(rs.getInt("no_utilisateur"),rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"));
+				user = new Utilisateur(rs.getInt("no_utilisateur"),rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getInt("administrateur"));
 			}			
 			
 			
@@ -157,6 +163,33 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			
 		return user;
 	}	
+	
+	@Override
+	public List<Utilisateur> selectMembres() {
+		Connection cnx = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Utilisateur user;
+		List<Utilisateur> listMembres= new ArrayList<Utilisateur>();
+		
+		try {
+			cnx = JdbcTools.getConnection();
+			pstmt = cnx.prepareStatement(SELECT_MEMBRES);
+
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				user = new Utilisateur(rs.getInt("no_utilisateur"),rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getInt("administrateur"));
+				listMembres.add(user);
+			}			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+			
+		return listMembres;
+	}
 		
 //UPDATE
 	@Override

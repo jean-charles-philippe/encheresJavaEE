@@ -36,9 +36,10 @@ public class Enchere {
 	Integer acheteur;
 	Integer vendeur;
 	Integer etat_enchere;
+	String imageVente;
 
 	public Enchere(Integer id_user_vente, String pseudo, Integer no_article, String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, Integer miseAPrix,
-			LocalDate date_enchere, Integer montant_enchere, Integer id_user_enchere, String pseudo_best, Integer etat_vente, String rue, String code_postal, String ville) {
+			LocalDate date_enchere, Integer montant_enchere, Integer id_user_enchere, String pseudo_best, Integer etat_vente, String rue, String code_postal, String ville, String imageVente) {
 		this.id_user_vente = id_user_vente;
 		this.pseudo = pseudo;
 		this.no_article = no_article;
@@ -55,11 +56,16 @@ public class Enchere {
 		this.rue = rue;
 		this.code_postal = code_postal;
 		this.ville = ville;
+		this.imageVente =  imageVente;
 	}
 	
 
 	
-//SUIVI ENCHERE	
+
+
+
+
+	//SUIVI ENCHERE	
 	public Enchere(Integer no_article, Integer id_user_enchere) {
 		this.no_article = no_article;
 		this.id_user_enchere = id_user_enchere;
@@ -340,11 +346,20 @@ public class Enchere {
 		this.etat_enchere = etat_enchere;
 	}
 
+	public String getImageVente() {
+		return imageVente;
+	}
 
+
+
+	public void setImageVente(String imageVente) {
+		this.imageVente = imageVente;
+	}
 
 	@Override
 	public String toString() {
-		return "Enchere [dateEnchere=" + dateEnchere + ", montantEnchere=" + montantEnchere + "]";
+		return "Enchere [nomArticle=" + nomArticle + ", acheteur=" + acheteur + ", vendeur=" + vendeur
+				+ ", etat_enchere=" + etat_enchere + "]";
 	}
 	
 }

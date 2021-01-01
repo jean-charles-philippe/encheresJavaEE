@@ -1,7 +1,7 @@
 package fr.eni.ecole.encheres.servlets;
 
 import java.io.IOException;
-import java.util.List;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,6 +50,8 @@ public class Login extends HttpServlet {
 		Cookie suiviLogin = new Cookie("suiviLogin", check_souvenir);
 		emailLogin.setMaxAge(Integer.MAX_VALUE);
 		suiviLogin.setMaxAge(Integer.MAX_VALUE);
+		
+		
 		
 		if (user!=null && check_souvenir != null ) {
 			session.setAttribute("userConnected", user);

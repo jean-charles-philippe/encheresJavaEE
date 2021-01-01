@@ -3,7 +3,6 @@ package fr.eni.ecole.encheres.dal;
 import java.time.LocalDate;
 import java.util.List;
 
-import fr.eni.ecole.encheres.bll.Article;
 import fr.eni.ecole.encheres.bll.Enchere;
 
 public interface EnchereDAO {

@@ -46,7 +46,7 @@
 
 											
 			<div class="col-md-3 ml-3 mb-3 text-center">
-				<img src="images\icon-uploader-5.jpg" class="img-fluid rounded " alt="Responsive image">
+				<img src="${enchere.imageVente}"  class="img-fluid rounded " alt="Responsive image">
 			</div>
 		
 			<form action="encherir" method="POST" class=" col-md-7">

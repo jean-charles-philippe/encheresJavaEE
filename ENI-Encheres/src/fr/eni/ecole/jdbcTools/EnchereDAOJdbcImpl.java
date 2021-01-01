@@ -6,11 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.ecole.encheres.bll.Article;
 import fr.eni.ecole.encheres.bll.Enchere;
 import fr.eni.ecole.encheres.dal.EnchereDAO;
 
@@ -24,8 +22,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	
 	
 	private static final String SELECT_ENCHERE_BY_ID_SQL = "SELECT utilisateurs.no_utilisateur as id_user_vente , utilisateurs.pseudo, "
-			+ "ARTICLES.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, date_enchere, montant_enchere, "
-			+ "ENCHERE.no_utilisateur as id_user_enchere, "
+			+ "ARTICLES.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, date_enchere, montant_enchere,  "
+			+ "ENCHERE.no_utilisateur as id_user_enchere,imageVente, "
 			+ "(SELECT pseudo FROM UTILISATEURS WHERE no_utilisateur=Enchere.no_utilisateur) pseudo_best, "
 			+ "etat_vente, retraits.rue, retraits.code_postal, retraits.ville "
 			+ "FROM articles\r\n" + 
@@ -36,8 +34,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	
 	
 	private static final String SELECT_ENCHERE_SUIVI_SQL = "SELECT  articles.no_utilisateur as id_user_vente , (SELECT pseudo FROM UTILISATEURS WHERE no_utilisateur=ARTICLES.no_utilisateur) pseudo , \r\n" + 
-			"			ARTICLES.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, date_enchere, montant_enchere, \r\n" + 
-			"			ENCHERE.no_utilisateur as id_user_enchere, \r\n" + 
+			"			ARTICLES.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, date_enchere, montant_enchere,  \r\n" + 
+			"			ENCHERE.no_utilisateur as id_user_enchere,imageVente, \r\n" + 
 			"			(SELECT pseudo FROM UTILISATEURS WHERE no_utilisateur=Enchere.no_utilisateur)  pseudo_best, \r\n" + 
 			"			etat_vente, retraits.rue, retraits.code_postal, retraits.ville \r\n" + 
 			"			FROM suivi \r\n" + 
@@ -58,7 +56,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	
 	private static final String SELECT_ARTICLE_MES_ENCHERES_REMPORTEES =	"SELECT utilisateurs.no_utilisateur as id_user_vente , utilisateurs.pseudo, \r\n" + 
 			"			ARTICLES.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, date_enchere, montant_enchere, \r\n" + 
-			"			ENCHERE.no_utilisateur as id_user_enchere, \r\n" + 
+			"			ENCHERE.no_utilisateur as id_user_enchere,imageVente , \r\n" + 
 			"			(SELECT pseudo FROM UTILISATEURS WHERE no_utilisateur=Enchere.no_utilisateur) pseudo_best, \r\n" + 
 			"			etat_vente, retraits.rue, retraits.code_postal, retraits.ville \r\n" + 
 			"			FROM articles\r\n" + 
@@ -151,7 +149,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				enchere = new Enchere(rs.getInt("id_user_vente"), rs.getString("pseudo"), rs.getInt("no_article"), rs.getString("nom_article"),rs.getString("description") , rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(),rs.getInt("prix_initial") ,rs.getDate("date_enchere").toLocalDate() ,rs.getInt("montant_enchere") ,rs.getInt("id_user_enchere"),rs.getString("pseudo_best") ,rs.getInt("etat_vente") ,rs.getString("rue"), rs.getString("code_postal"),rs.getString("ville") );
+				enchere = new Enchere(rs.getInt("id_user_vente"), rs.getString("pseudo"), rs.getInt("no_article"), rs.getString("nom_article"),rs.getString("description") , rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(),rs.getInt("prix_initial") ,rs.getDate("date_enchere").toLocalDate() ,rs.getInt("montant_enchere") ,rs.getInt("id_user_enchere"),rs.getString("pseudo_best") ,rs.getInt("etat_vente") ,rs.getString("rue"), rs.getString("code_postal"),rs.getString("ville"),rs.getString("imageVente") );
 			}			
 			
 			System.out.println("dans le jdbc" + enchere);
@@ -190,7 +188,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 			
 			while (rs.next()) {
-				enchere = new Enchere(rs.getInt("id_user_vente"), rs.getString("pseudo"), rs.getInt("no_article"), rs.getString("nom_article"),rs.getString("description") , rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(),rs.getInt("prix_initial") ,rs.getDate("date_enchere").toLocalDate() ,rs.getInt("montant_enchere") ,rs.getInt("id_user_enchere"),rs.getString("pseudo_best") ,rs.getInt("etat_vente") ,rs.getString("rue"), rs.getString("code_postal"),rs.getString("ville") );
+				enchere = new Enchere(rs.getInt("id_user_vente"), rs.getString("pseudo"), rs.getInt("no_article"), rs.getString("nom_article"),rs.getString("description") , rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(),rs.getInt("prix_initial") ,rs.getDate("date_enchere").toLocalDate() ,rs.getInt("montant_enchere") ,rs.getInt("id_user_enchere"),rs.getString("pseudo_best") ,rs.getInt("etat_vente") ,rs.getString("rue"), rs.getString("code_postal"),rs.getString("ville") ,rs.getString("imageVente"));
 				suiviEnchere_User.add(enchere);
 			}			
 					
@@ -302,7 +300,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				vente = new Enchere(rs.getInt("id_user_vente"), rs.getString("pseudo"), rs.getInt("no_article"), rs.getString("nom_article"),rs.getString("description") , rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(),rs.getInt("prix_initial") ,rs.getDate("date_enchere").toLocalDate() ,rs.getInt("montant_enchere") ,rs.getInt("id_user_enchere"),rs.getString("pseudo_best") ,rs.getInt("etat_vente") ,rs.getString("rue"), rs.getString("code_postal"),rs.getString("ville") );
+				vente = new Enchere(rs.getInt("id_user_vente"), rs.getString("pseudo"), rs.getInt("no_article"), rs.getString("nom_article"),rs.getString("description") , rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(),rs.getInt("prix_initial") ,rs.getDate("date_enchere").toLocalDate() ,rs.getInt("montant_enchere") ,rs.getInt("id_user_enchere"),rs.getString("pseudo_best") ,rs.getInt("etat_vente") ,rs.getString("rue"), rs.getString("code_postal"),rs.getString("ville"),rs.getString("imageVente") );
 				achatsRemportes.add(vente);
 			}			
 			

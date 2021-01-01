@@ -1,6 +1,7 @@
 package fr.eni.ecole.encheres.dal;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import fr.eni.ecole.encheres.bll.Utilisateur;
 
@@ -16,6 +17,8 @@ public interface UtilisateurDAO {
 	public Utilisateur selectByPseudo(String pseudo);
 	
 	Utilisateur selectById(Integer no_utilisateur);
+	
+	List<Utilisateur> selectMembres();
 	
 //UPDATE
 	public void updateUtilisateur(Utilisateur user);

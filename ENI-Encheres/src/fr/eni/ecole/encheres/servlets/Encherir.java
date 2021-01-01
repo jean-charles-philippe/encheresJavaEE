@@ -39,18 +39,15 @@ public class Encherir extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		Utilisateur user;
-		Utilisateur userVendeur = null;;
+		
 		Integer nouvelEncherisseur =	Integer.parseInt(request.getParameter("id_User_faisant_enchere"));
-		Integer dernierEncherisseur = Integer.parseInt(request.getParameter("id_User_ayant_meilleur_offre_avant_enchere"));
-		Integer idVendeur = Integer.parseInt(request.getParameter("id_User_vendeur"));		
+		Integer dernierEncherisseur = Integer.parseInt(request.getParameter("id_User_ayant_meilleur_offre_avant_enchere"));		
 		Integer no_article =Integer.parseInt(request.getParameter("enchere_no_article"));
 		Integer montant_enchere = Integer.parseInt(request.getParameter("form_encherir_proposition"));
 		LocalDate date_fin_enchere =LocalDate.parse( request.getParameter("form_encherir_fin"));
 		
 		UtilisateurManager mngrUser = UtilisateurManager.getInstance();
 		user = mngrUser.selectById(nouvelEncherisseur);
-		userVendeur =  mngrUser.selectById(idVendeur);
-		
 		if(date_fin_enchere.isBefore(LocalDate.now())) {
 			request.setAttribute("EnchereTerminee", "L'enchère n'a pas aboutie, vous avez atteint le limte fixée par le vendeur.");
 			getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
